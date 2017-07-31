@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../external/css/materialize.min.css">
+        <link rel="stylesheet" href="popup.css" type="text/css">
+        <title> redditExpress popup </title>
+    </head>
+
+
+
+    <div class="container">
+        <div class="header">
+            <a id="plug" href="https://chrome.google.com/webstore/detail/redditexpress/lkgolnijhddkilnelckdjncgegakgplg/support?hl=en">suggestions+/bugs</a> 
+            <img class="brand" src="reddit_icon.png">
+            <h3 class="title">
+                <strong>reddit</strong><em>Express</em>
+            </h3>
+        <div>
+
+        <div class="progress orange">
+            <div class="indeterminate red"></div>
+        </div>
+
+
+      <ul class="tabs">
+          <li class="tab"><a class="active grey darken-3" href="#featuresTab">Features</a></li>
+          <li class="tab"><a class="grey darken-3" href="#shortcutsTab">Shortcuts</a></li>
+      </ul>
+
+      <a class="more-info" href="https://github.com/cidouchi/redditExpress/blob/master/README.md"><img src="info.png"></a>
+
+      <div class="content">
+          <div id="featuresTab">
+            <div class="row" id="row1">
+              <div class="col s6">
+                <!-- Switch -->
+                <div class="switch" id="lazyload">
+                    <label>
+                      <h5>Lazy-Load</h5>   Off
+                      <input type="checkbox" checked>
+                      <span class="lever"></span>
+                      On
+                    </label>
+                 </div>
+              </div>
+
+              <div class="col s6">
+                <!-- Switch -->
+                <div class="switch" id="scrollTop">
+                    <label>
+                      <h5>Scroll-to-Top</h5>   Off
+                      <input type="checkbox" checked>
+                      <span class="lever"></span>
+                      On
+                    </label>
+                 </div>
+              </div>
+            </div><!--row-->
+
+            <div class="row" id="row2">
+              <div class="col s6">
+                <!-- Switch -->
+                <div class="switch" id="hover">
+                    <label>
+                      <h5>Hover Preview</h5>   Off
+                      <input type="checkbox" checked>
+                      <span class="lever"></span>
+                      On
+                    </label>
+                 </div>
+              </div>
+
+              <div class="col s6">
+                <!-- Switch -->
+                <div class="switch" id="tab">
+                    <label>
+                      <h5>New Tab</h5>   Off
+                      <input type="checkbox" checked>
+                      <span class="lever"></span>
+                      On
+                    </label>
+                 </div>
+              </div>
+            </div><!--row-->
+          </div><!--FeaturesTab-->
+
+      <div id="shortcutsTab">
+        <h6 id="space"> <img class="shortcut space" src="space.png"> lazy-load </h6>
+        <h6 id="x"> <img class="shortcut x" src="x_key.png"> close reddit tabs opened with 'new tab' feature </h6>
+      </div>
+
+       
+    </div><!--content-->
+    </div><!-- container -->  
+ 
+
+
+        <script src="../external/jquery-3.2.1.min.js"></script>
+        <script src="../external/js/materialize.js"></script>
+        <script src="popup.js"></script>
+    </body>
+
+</html>
