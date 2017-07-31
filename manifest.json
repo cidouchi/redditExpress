@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "redditExpress",
-  "description": "This extension attempts to maximize reddit browsing laziness",
+  "description": "Supplements reddit browsing experience",
   "version": "1.0",
 
   "icons": { "128": "reddit_icon.png" },
