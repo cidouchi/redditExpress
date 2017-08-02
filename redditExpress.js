@@ -10,8 +10,9 @@ document.querySelector("head").appendChild(fonts);
 $("div.goldvertisement").hide();
 
 
+
 /***** LAZY LOAD *****/
-chrome.storage.sync.get("lazyload", function(data){
+chrome.storage.sync.get("lazyload", function(data){ //check user feature settings in popup
 if (data.lazyload) {  
 
     var numPostsOnPage = 25;
@@ -22,7 +23,7 @@ if (data.lazyload) {
     //hide prev and next buttons at bottom of page
     $(".nav-buttons").hide();
 
-    /* extract ID value from reddit post */
+    //extract ID value from reddit post 
     function extractID(post) {
         var id = post.getAttribute("id");
         return ( id.slice(6) );  //get rid of extraneous chars
@@ -43,8 +44,9 @@ if (data.lazyload) {
              });
     }
 
-    function lazyLoad() {
-        var URL = "https://www.reddit.com/?count=" + lastRank + "&after=" + lastID;
+    /* fetch posts from next page and append to current page */
+    function lazyLoad(subreddit) {
+        var URL = "https://www.reddit.com" + subreddit + "/?count=" + lastRank + "&after=" + lastID;
         $.ajax({
                     url: URL, 
                     success: function(data) {
@@ -54,8 +56,9 @@ if (data.lazyload) {
                                     document.querySelector(".content #siteTable").appendChild(redditPosts[i]);
                                 }
                                 
+
                                 /* enable Mouse Over Events to newly appended posts */
-                                chrome.storage.sync.get("hover", function(data){
+                                chrome.storage.sync.get("hover", function(data){ //check user feature settings in popup
                                 if (data.hover) {
                                 var expButtonArray = document.querySelectorAll(".expando-button");
                                 var expandoArray = document.querySelectorAll(".expando");
@@ -74,8 +77,9 @@ if (data.lazyload) {
                                 }
                                 }});//end storage.sync
                                 
+
                                 /* enable Tab Handling Events to newly appended posts */
-                                chrome.storage.sync.get("tab", function(data){
+                                chrome.storage.sync.get("tab", function(data){ //check user feature settings in popup
                                 if (data.tab) { 
                                 
                                 /* open main-post links and comments in new tab */
@@ -102,8 +106,6 @@ if (data.lazyload) {
                             },
                     async:false
                 });
-
-
         
         //update
         lastRank += numPostsOnPage;
@@ -123,12 +125,21 @@ if (data.lazyload) {
             lastRank = 25;
         } 
             
-
-        //don't allow lazyload on comment pages
+        /* parse subreddit if any */
+        var subreddit = "";
+        var index = currentURL.indexOf("/r/");
+        if (index !== -1) {
+            subreddit = currentURL.slice(index);
+            var endIndex = subreddit.lastIndexOf("/");
+            subreddit = subreddit.slice(0,endIndex);
+        }
+        
+        /* don't allow lazyload on comment pages */
         if (/\/comments\//.test(currentURL)){
             true;
         }
         else {
+
             /* create lazy load button */
             var LLbutton = document.createElement("a");
             LLbutton.setAttribute("class","lazy-load btn flow-text red"); 
@@ -137,7 +148,7 @@ if (data.lazyload) {
             document.querySelector("body").appendChild(LLbutton);
 
             $("a.lazy-load").on("click", function(){ 
-                                            lazyLoad(); 
+                                            lazyLoad(subreddit); 
                                         });
             $("a.lazy-load").on("mouseenter mouseleave", function(){ $(this).toggleClass("red");
                                                                  $(this).toggleClass("red accent-2"); });
@@ -175,10 +186,7 @@ if (data.lazyload) {
         }
     });
 
-
 }});//end storage.sync
-
-
 
 
 
@@ -186,14 +194,15 @@ if (data.lazyload) {
 var parentComments = document.querySelectorAll(".sitetable.nestedlisting > .comment > .entry");
 
 for (let i=0; i<parentComments.length; i++) {
-    parentComments[i].setAttribute("style","padding:4px; background-color: yellow lighten-5;");
+    parentComments[i].setAttribute("style","padding:4px;");
     parentComments[i].classList.add("z-depth-2");
 
 }
 
 
+
 /***** BACK TO TOP *****/
-chrome.storage.sync.get("scrollTop", function(data){
+chrome.storage.sync.get("scrollTop", function(data){ //check user feature settings in popup
 if (data.scrollTop) {
 /* create back to top button */
 var button = document.createElement("a");
@@ -220,9 +229,8 @@ $(window).scroll( function() {
     });
 }});//end storage.sync
 
-/***** MOUSE OVER *****/
-//for intial page posts
-chrome.storage.sync.get("hover", function(data){
+/***** MOUSE OVER (for initial posts on homepage) *****/
+chrome.storage.sync.get("hover", function(data){ //check user feature settings in popup
 if (data.hover) {
 var expButtonArray = document.querySelectorAll(".expando-button");
 var expandoArray = document.querySelectorAll(".expando");
@@ -244,12 +252,11 @@ for (let i=0; i<expButtonArray.length; i++) {
 
 
 
-/***** TAB HANDLING *****/ 
-//for intial page posts
-chrome.storage.sync.get("tab", function(data){
+/***** TAB HANDLING (for initial posts on homepage) *****/ 
+chrome.storage.sync.get("tab", function(data){ //check user feature settings in popup
 if (data.tab) { 
-/* open main-post links and comments in new tab */
 
+/* open main-post links and comments in new tab */
 var postLinksArray = document.querySelectorAll(".content #siteTable .thing p.title"); 
 var commentsArray = document.querySelectorAll(".flat-list.buttons li.first");
 
