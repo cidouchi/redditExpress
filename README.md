@@ -1,4 +1,4 @@
-![alt text](https://github.com/cidouchi/redditExpress/blob/master/logo.png)
+![alt text](https://github.com/cidouchi/redditExpress/blob/master/images/logo.png)
 ---
 A lightweight chrome extension to supplement your browsing experience on Reddit
 
@@ -17,14 +17,14 @@ __Features__
 
 + Highlights all parent comments for clarity
 
-![alt text](https://github.com/cidouchi/redditExpress/blob/master/comment.png)
+![alt text](https://github.com/cidouchi/redditExpress/blob/master/images/comment.png)
 
 ---
 
 + Popup menu to customize features 
 *(refresh browser to see changes!)*
 
-![alt text](https://github.com/cidouchi/redditExpress/blob/master/features.png)
+![alt text](https://github.com/cidouchi/redditExpress/blob/master/images/features.png)
 
-![alt text](https://github.com/cidouchi/redditExpress/blob/master/shortcuts.png)
+![alt text](https://github.com/cidouchi/redditExpress/blob/master/images/shortcuts.png)
 
