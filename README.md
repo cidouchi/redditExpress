@@ -4,6 +4,6 @@
 
 
 
-![alt text](https://fat.gfycat.com/DistantNaughtyFritillarybutterfly.gif)
+![image](https://fat.gfycat.com/DistantNaughtyFritillarybutterfly.gif)
 
-![alt text](https://gfycat.com/gifs/detail/AdmiredPartialDegu)
+![image](https://gfycat.com/gifs/detail/AdmiredPartialDegu)
