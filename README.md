@@ -2,7 +2,7 @@
 ---
 A lightweight chrome extension to supplement your browsing experience on Reddit
 
-
+[![image](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/redditexpress/lkgolnijhddkilnelckdjncgegakgplg?hl=en)
 
 __Features__
 ---
@@ -25,4 +25,6 @@ __Features__
 *(refresh browser to see changes!)*
 
 ![alt text](https://github.com/cidouchi/redditExpress/blob/master/features.png)
+
 ![alt text](https://github.com/cidouchi/redditExpress/blob/master/shortcuts.png)
+
