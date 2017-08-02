@@ -1,13 +1,13 @@
 
 /***** SET UP ******/
+
 /* import fonts */
 var fonts = document.createElement("link");
 fonts.setAttribute("href", "https://fonts.googleapis.com/icon?family=Material+Icons");
 fonts.setAttribute("rel","stylesheet");
 document.querySelector("head").appendChild(fonts);
 
-//hide daily reddit gold goal bar
-$("div.goldvertisement").hide();
+$("div.goldvertisement").hide(); //hide daily reddit gold goal bar
 
 
 
@@ -33,6 +33,7 @@ if (data.lazyload) {
     function getLastPostID(page_url) {
         $.ajax({  
                 url: page_url,
+
                 success: function(data) { 
                             //make data jQuery compatible 
                             var response = $('<html />').html(data);
@@ -40,6 +41,7 @@ if (data.lazyload) {
                             var redditPosts = $(response).find(".content #siteTable .thing");
                             lastID = extractID(redditPosts[redditPosts.length-1]);
                         },
+
                 async: false 
              });
     }
@@ -55,55 +57,56 @@ if (data.lazyload) {
                                 for (var i=0; i<redditPosts.length; i++) {
                                     document.querySelector(".content #siteTable").appendChild(redditPosts[i]);
                                 }
-                                
+        
 
                                 /* enable Mouse Over Events to newly appended posts */
                                 chrome.storage.sync.get("hover", function(data){ //check user feature settings in popup
-                                if (data.hover) {
-                                var expButtonArray = document.querySelectorAll(".expando-button");
-                                var expandoArray = document.querySelectorAll(".expando");
+                                    if (data.hover) {
+                                        var expButtonArray = document.querySelectorAll(".expando-button");
+                                        var expandoArray = document.querySelectorAll(".expando");
 
-                                function expandToggle(expButton,index) {
-                                    expandoArray[index].setAttribute("style", "display:block");
-                                    expButton.classList.toggle("expanded");
-                                    expButton.classList.toggle("collapsed");
-                                    expButton.click();   
-                                }
+                                        function expandToggle(expButton,index) {
+                                            expandoArray[index].setAttribute("style", "display:block");
+                                            expButton.classList.toggle("expanded");
+                                            expButton.classList.toggle("collapsed");
+                                            expButton.click();   
+                                        }
 
-                                for (let i=0; i<expButtonArray.length; i++) {
-                                    expButtonArray[i].addEventListener("mouseover", 
-                                                        function(){expandToggle(this,i)}
-                                                        , false);
-                                }
-                                }});//end storage.sync
+                                        for (let i=0; i<expButtonArray.length; i++) {
+                                            expButtonArray[i].addEventListener("mouseover", 
+                                                                function(){expandToggle(this,i)}
+                                                                , false);
+                                        }
+                                }});
                                 
 
                                 /* enable Tab Handling Events to newly appended posts */
                                 chrome.storage.sync.get("tab", function(data){ //check user feature settings in popup
-                                if (data.tab) { 
+                                    if (data.tab) { 
                                 
-                                /* open main-post links and comments in new tab */
-                                var postLinksArray = document.querySelectorAll(".content #siteTable .thing p.title"); 
-                                var commentsArray = document.querySelectorAll(".flat-list.buttons li.first");
+                                        /* open main-post links and comments in new tab */
+                                        var postLinksArray = document.querySelectorAll(".content #siteTable .thing p.title"); 
+                                        var commentsArray = document.querySelectorAll(".flat-list.buttons li.first");
 
-                                function newTab(url) {
-                                    var tab = open(url, "_blank")
-                                    tab.focus();
-                                }
+                                        function newTab(url) {
+                                            var tab = open(url, "_blank")
+                                            tab.focus();
+                                        }
 
-                                for (let i=0; i<commentsArray.length; i++) {
-                                    commentsArray[i].onclick = function(){
-                                                                    newTab(this.querySelector("a"));
-                                                                    return false;
-                                                               }
-                                    postLinksArray[i].onclick = function(){
-                                                                    newTab(this.querySelector("a"));
-                                                                    return false;
-                                                               }
-                                };
+                                        for (let i=0; i<commentsArray.length; i++) {
+                                            commentsArray[i].onclick = function(){
+                                                                            newTab(this.querySelector("a"));
+                                                                            return false;
+                                                                       }
+                                            postLinksArray[i].onclick = function(){
+                                                                            newTab(this.querySelector("a"));
+                                                                            return false;
+                                                                       }
+                                        };
 
-                                }});//end storage.sync
+                                }});
                             },
+
                     async:false
                 });
         
@@ -186,7 +189,7 @@ if (data.lazyload) {
         }
     });
 
-}});//end storage.sync
+}});
 
 
 
@@ -196,91 +199,91 @@ var parentComments = document.querySelectorAll(".sitetable.nestedlisting > .comm
 for (let i=0; i<parentComments.length; i++) {
     parentComments[i].setAttribute("style","padding:4px;");
     parentComments[i].classList.add("z-depth-2");
-
 }
 
 
 
 /***** BACK TO TOP *****/
 chrome.storage.sync.get("scrollTop", function(data){ //check user feature settings in popup
-if (data.scrollTop) {
-/* create back to top button */
-var button = document.createElement("a");
-button.setAttribute("class","up-button btn-floating btn-large red material-icons"); 
-var buttonContent = document.createTextNode("arrow_upward");
-button.appendChild(buttonContent);
-document.querySelector("body").appendChild(button);
+    if (data.scrollTop) {
 
-//action
-$("a.up-button").on("click", function() { window.scrollTo(0,0); });
+        /* create back to top button */
+        var button = document.createElement("a");
+        button.setAttribute("class","up-button btn-floating btn-large red material-icons"); 
+        var buttonContent = document.createTextNode("arrow_upward");
+        button.appendChild(buttonContent);
+        document.querySelector("body").appendChild(button);
 
-//pulse animation
-$("a.up-button").on("mouseenter mouseleave", function() { $(this).toggleClass("pulse");
-                                                          $(this).toggleClass("red");
-                                                          $(this).toggleClass("red accent-2"); });
+        //action
+        $("a.up-button").on("click", function() { window.scrollTo(0,0); });
 
-/* fade button on scroll */
-$(window).scroll( function() { 
-      if ($(window).scrollTop() > 300) 
-        {$('a.up-button').fadeIn("slow");}
-      else {
-        $('a.up-button').fadeOut("slow");
-      }
-    });
-}});//end storage.sync
+        //pulse animation
+        $("a.up-button").on("mouseenter mouseleave", function() { $(this).toggleClass("pulse");
+                                                                  $(this).toggleClass("red");
+                                                                  $(this).toggleClass("red accent-2"); });
+
+        /* fade button on scroll */
+        $(window).scroll( function() { 
+              if ($(window).scrollTop() > 300) 
+                {$('a.up-button').fadeIn("slow");}
+              else {
+                $('a.up-button').fadeOut("slow");
+              }
+            });
+
+}});
+
+
 
 /***** MOUSE OVER (for initial posts on homepage) *****/
 chrome.storage.sync.get("hover", function(data){ //check user feature settings in popup
-if (data.hover) {
-var expButtonArray = document.querySelectorAll(".expando-button");
-var expandoArray = document.querySelectorAll(".expando");
+    if (data.hover) {
 
-function expandToggle(expButton,index) {
-    expandoArray[index].setAttribute("style", "display:block");
-    expButton.classList.toggle("expanded");
-    expButton.classList.toggle("collapsed");
-    expButton.click();   
-}
+        var expButtonArray = document.querySelectorAll(".expando-button");
+        var expandoArray = document.querySelectorAll(".expando");
 
-for (let i=0; i<expButtonArray.length; i++) {
-    expButtonArray[i].addEventListener("mouseover", 
-                        function(){expandToggle(this,i)}
-                        , false);
-}
+        function expandToggle(expButton,index) {
+            expandoArray[index].setAttribute("style", "display:block");
+            expButton.classList.toggle("expanded");
+            expButton.classList.toggle("collapsed");
+            expButton.click();   
+        }
 
-}});//end storage.sync
+        for (let i=0; i<expButtonArray.length; i++) {
+            expButtonArray[i].addEventListener("mouseover", 
+                                function(){expandToggle(this,i)}
+                                , false);
+        }
+
+}});
 
 
 
 /***** TAB HANDLING (for initial posts on homepage) *****/ 
 chrome.storage.sync.get("tab", function(data){ //check user feature settings in popup
-if (data.tab) { 
+    if (data.tab) { 
 
-/* open main-post links and comments in new tab */
-var postLinksArray = document.querySelectorAll(".content #siteTable .thing p.title"); 
-var commentsArray = document.querySelectorAll(".flat-list.buttons li.first");
+        /* open main-post links and comments in new tab */
+        var postLinksArray = document.querySelectorAll(".content #siteTable .thing p.title"); 
+        var commentsArray = document.querySelectorAll(".flat-list.buttons li.first");
 
-function newTab(url) {
-    var tab = open(url, "_blank")
-    tab.focus();
-}
+        function newTab(url) {
+            var tab = open(url, "_blank")
+            tab.focus();
+        }
 
-for (let i=0; i<commentsArray.length; i++) {
-    commentsArray[i].onclick = function(){
-                                    newTab(this.querySelector("a"));
-                                    return false;
-                               }
-    postLinksArray[i].onclick = function(){
-                                    newTab(this.querySelector("a"));
-                                    return false;
-                               }
-};
+        for (let i=0; i<commentsArray.length; i++) {
+            commentsArray[i].onclick = function(){
+                                            newTab(this.querySelector("a"));
+                                            return false;
+                                       }
+            postLinksArray[i].onclick = function(){
+                                            newTab(this.querySelector("a"));
+                                            return false;
+                                       }
+        };
 
-
-}});//end storage.sync
-
-
-
+}});
 
 
 
